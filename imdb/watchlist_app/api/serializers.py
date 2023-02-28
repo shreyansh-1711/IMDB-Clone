@@ -2,11 +2,6 @@ from rest_framework import serializers
 from watchlist_app.models import WatchList,StreamPlatform
 
 
-class StreamPlatformSerializer(serializers.ModelSerializer):
-       
-    class Meta:
-        model = StreamPlatform
-        fields = "__all__" 
 
 
 class WatchListSerializer(serializers.ModelSerializer):
@@ -16,7 +11,21 @@ class WatchListSerializer(serializers.ModelSerializer):
         fields = "__all__"
         # fields = ['id', 'name', 'description']
         # exclude = ['name']
-        
+      
+      
+      
+    
+class StreamPlatformSerializer(serializers.ModelSerializer):
+    
+    watchlist = WatchListSerializer(many = True, read_only = True)
+       
+    class Meta:
+        model = StreamPlatform
+        fields = "__all__" 
+    
+    
+    
+                    
     # def get_len_names(self, object):
     #     return len(object.name)  
         
@@ -35,9 +44,7 @@ class WatchListSerializer(serializers.ModelSerializer):
     #         raise serializers.ValidationError("Name must be at least 2 characters")
     #     else:
     #         return value
-    
-    
-            
+
         
 
 
