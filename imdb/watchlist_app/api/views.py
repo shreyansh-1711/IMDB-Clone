@@ -3,13 +3,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from watchlist_app.models import WatchList,StreamPlatform
 from rest_framework import status
-from watchlist_app.api.serializers import WatchListSerializer,StreamPlatformSerializer
+from watchlist_app.api.serializers import WatchListSerializer,StreamPlatformSerializer, ReviewSerializer
 
 
 class StreamPlatformAV(APIView):
     def get (self, request):
         platform = StreamPlatform.objects.all()
-        serializer = StreamPlatformSerializer(platform, many=True, context={'request': request})
+        serializer = StreamPlatformSerializer(platform, many=True)
         return Response(serializer.data)
     
     def post(self, request):
