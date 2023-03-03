@@ -6,6 +6,7 @@ from rest_framework .exceptions import ValidationError
 # from rest_framework import mixins
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
 
@@ -34,6 +35,7 @@ class ReviewCreate(generics.CreateAPIView):
 
 class ReviewList(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         pk = self.kwargs['pk']
