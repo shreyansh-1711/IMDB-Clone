@@ -7,7 +7,9 @@ from rest_framework .exceptions import ValidationError
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
+from rest_framework import filters
 
 
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
@@ -71,6 +73,8 @@ class ReviewList(generics.ListCreateAPIView):
     serializer_class = ReviewSerializer
     
     throttle_classes = [ReviewListThrottle, AnonRateThrottle]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['review_user__username', 'active']
     # permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
@@ -282,4 +286,15 @@ class WatchListDetailAV(APIView):
 #         movie.delete()
 #         return Response(status = status.HTTP_204_NO_CONTENT)
     
+    
+    
+# SEarch 
+class WatchList(generics.ListCreateAPIView):
+    queryset = WatchList.objects.all()
+    serializer_class = WatchListSerializer
+    
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'platform__name']
+    # permission_classes = [IsAuthenticated]
+
     
