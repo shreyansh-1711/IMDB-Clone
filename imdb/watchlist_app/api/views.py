@@ -289,7 +289,7 @@ class WatchListDetailAV(APIView):
     
     
 # SEarch 
-class WatchList(generics.ListCreateAPIView):
+class WatchListGV(generics.ListCreateAPIView):
     queryset = WatchList.objects.all()
     serializer_class = WatchListSerializer
     
